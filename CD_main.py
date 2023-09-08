@@ -13,7 +13,9 @@ from torch.utils.data import DataLoader
 from cd_dataset import ChangeDetectionDataset
 from cd_model import ChangeDetectionModel
 from cd_epochs import train_model
-from cd_test import evaluate_model
+from cd_test import evaluate_model, visualize_predictions
+
+
 
 # Data Preparation
 # ---------------- Training Data
@@ -69,3 +71,23 @@ metrics = evaluate_model(test_dataloader, model, device)
 for key, value in metrics.items():
     print(f"{key}: {value}")
 
+#----------- visualisation of change map
+
+threshold = 0.4
+model.eval()
+batch_num = 23   # sample from batches
+
+with torch.no_grad():
+    for i, sample_batch in enumerate(test_dataloader):
+        if i == batch_num:
+            epoch1_imgs = sample_batch['epoch1'].to(device)
+            epoch2_imgs = sample_batch['epoch2'].to(device)
+            true_masks = sample_batch['mask'].to(device)
+            output, _, _ = model(epoch1_imgs, epoch2_imgs)
+            predicted_masks = torch.sigmoid(output)
+            # Apply thresholding
+            #predicted_masks = (predicted_masks > threshold).float()
+            predicted_masks[predicted_masks < threshold] = 0
+            break
+
+visualize_predictions(epoch1_imgs, epoch2_imgs, true_masks, predicted_masks)
