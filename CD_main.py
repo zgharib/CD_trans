@@ -18,17 +18,17 @@ from cd_test import evaluate_model
 # Data Preparation
 # ---------------- Training Data
 
-epoch1_folder = 'C:/Users/zeina/Desktop/My_Paper/Data/new_Levir/train/A/'
-epoch2_folder = 'C:/Users/zeina/Desktop/My_Paper/Data/new_Levir/train/B/'
-mask_folder = 'C:/Users/zeina/Desktop/My_Paper/Data/new_Levir/train/label/'
+epoch1_folder = '/Data/new_Levir/train/A/'
+epoch2_folder = '/Data/new_Levir/train/B/'
+mask_folder = '/Data/new_Levir/train/label/'
 
 train_dataset = ChangeDetectionDataset(epoch1_folder, epoch2_folder, mask_folder)# , augmentations=augmentations)
 train_dataloader = DataLoader(train_dataset, batch_size=20, shuffle=True)
 
 # --------------- Validation Data
-epoch1_folder = 'C:/Users/zeina/Desktop/My_Paper/Data/new_Levir/test/A/'
-epoch2_folder = 'C:/Users/zeina/Desktop/My_Paper/Data/new_Levir/test/B/'
-mask_folder = 'C:/Users/zeina/Desktop/My_Paper/Data/new_Levir/test/label/'
+epoch1_folder = '/Data/new_Levir/test/A/'
+epoch2_folder = '/Data/new_Levir/test/B/'
+mask_folder = '/Data/new_Levir/test/label/'
 
 val_dataset = ChangeDetectionDataset(epoch1_folder, epoch2_folder, mask_folder)# , augmentations=augmentations)
 
@@ -53,9 +53,9 @@ train_model(scheduler, device, model, train_dataloader, val_dataloader, loss_fun
 
 #----------------- test and evaluation
 
-test_epoch1_folder = 'C:/Users/zeina/Desktop/My_Paper/Data/new_Levir/test/A/'
-test_epoch2_folder = 'C:/Users/zeina/Desktop/My_Paper/Data/new_Levir/test/B/'
-test_mask_folder = 'C:/Users/zeina/Desktop/My_Paper/Data/new_Levir/test/label/'
+test_epoch1_folder = '/Data/new_Levir/test/A/'
+test_epoch2_folder = '/Data/new_Levir/test/B/'
+test_mask_folder = '/Data/new_Levir/test/label/'
 
 # Instantiating the custom dataset
 test_dataset = ChangeDetectionDataset(test_epoch1_folder, test_epoch2_folder, test_mask_folder)
